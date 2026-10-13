@@ -1,16 +1,50 @@
-# React + Vite
+# DSA e-commerce system
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack e-commerce system. Currently implements an **award-oriented frontend**
+— an editorial "digital flagship" storefront — built on the 2026 award-winning
+principles of art direction, directed motion, and performance.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Next.js 16 (App Router)** + React 19
+- **Tailwind CSS v4** with theme tokens (`app/globals.css`)
+- **GSAP** (`ScrollTrigger`, `SplitText` via its own split) + **Lenis** smooth scroll
+- **Zustand** (cart, persisted) · **TanStack Query** · **react-hook-form + zod**
+- Type catches, semantic markup, JSON-LD, sitemap, reduced-motion support throughout
 
-## React Compiler
+## Getting started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+cd front-end
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Scripts: `dev`, `build`, `start`, `lint`, `format`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Structure
+
+```
+front-end/
+├── app/                 # routes: /, /shop, /product/[slug], /cart, /checkout, 404
+├── components/
+│   ├── motion/          # SmoothScroll, Reveal, SplitHeading, Marquee, Magnetic, Cursor
+│   ├── layout/          # Header, Footer
+│   ├── product/         # Card, Gallery, BuyPanel, Skeletons
+│   ├── shop/            # ShopGrid (filter/sort)
+│   ├── cart/            # CartDrawer
+│   ├── checkout/        # multi-step CheckoutForm
+│   └── search/          # command-palette SearchOverlay (⌘K)
+├── content/catalog.js   # mock product data (swap for a real API later)
+├── lib/                 # fonts, format, stores, hooks
+└── scripts/gen-assets.mjs  # regenerates the editorial SVG product imagery
+```
+
+> `/checkout` is a simulated flow — no real payment is processed. Product data is
+> mocked in `content/catalog.js`; swap in a real API by replacing those loaders.
+
+## Motion & accessibility
+
+Every motion primitive respects `prefers-reduced-motion`, custom cursor and
+magnetic effects are desktop/pointer-and-fine-only, and all interactive elements
+have keyboard + `:focus-visible` support.
